@@ -36,14 +36,26 @@
       }
     ],
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        "args": "all",
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_",
-        "caughtErrorsIgnorePattern": "^_"
-      }
-    ]
+    "@typescript-eslint/no-unused-vars": "off",
+    // : [
+    //   "error",
+    //   {
+    //     "args": "all",
+    //     "argsIgnorePattern": "^_",
+    //     "varsIgnorePattern": "^_",
+    //     "caughtErrorsIgnorePattern": "^_"
+    //   }
+    // ],
+    // ДОБАВЬТЕ ЭТИ ПРАВИЛА:
+    "quotes": "off",
+    "linebreak-style": "off",
+    "import/order": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/prefer-default-export": "off",
+    "object-curly-newline": "off",
+    "comma-dangle": "off",
+    "consistent-return": "off",
+    "operator-linebreak": "off",
+    "object-shorthand": "off"
   }
 }
