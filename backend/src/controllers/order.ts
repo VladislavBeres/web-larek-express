@@ -36,7 +36,7 @@ export const createOrder = async (
 
     const orderId = faker.string.uuid();
 
-    res.status(201).json({
+    res.status(200).json({
       id: orderId,
       total: total,
     });

@@ -40,7 +40,7 @@ export const createProduct = async (
     const newProduct = new Product(productData);
     await newProduct.save();
 
-    res.status(201).json(newProduct);
+    res.status(200).json(newProduct);
   } catch (error: any) {
     // Обработка ошибки дубликата title
     if (error.message && error.message.includes("E11000")) {
