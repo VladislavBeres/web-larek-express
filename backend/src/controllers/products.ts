@@ -41,29 +41,23 @@ export const createProduct = async (
     await newProduct.save();
 
     res.status(201).json(newProduct);
-  } catch (error: any) {
-    // Обработка ошибки дубликата title
-    if (error.message && error.message.includes("E11000")) {
-      return next(new ConflictError("Товар с таким названием уже существует"));
-    }
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      // Обработка ошибки дубликата title
+      if (error.message && error.message.includes("E11000")) {
+        return next(
+          new ConflictError("Товар с таким названием уже существует")
+        );
+      }
 
-    // Обработка ошибок валидации Mongoose
-    if (error instanceof Error && error.name === "ValidationError") {
-      return next(
-        new BadRequestError("Ошибка валидации данных при создании товара")
-      );
+      // Обработка ошибок валидации Mongoose
+      if (error.name === "ValidationError") {
+        return next(
+          new BadRequestError("Ошибка валидации данных при создании товара")
+        );
+      }
     }
 
     next(error);
-  }
-};
-
-// DELETE /product - очищает все товары (временный метод для разработки)
-export const deleteAllProducts = async (req: Request, res: Response) => {
-  try {
-    await Product.deleteMany({});
-    res.json({ message: "Все товары удалены" });
-  } catch (error) {
-    res.status(500).json({ error: "Ошибка при удалении товаров" });
   }
 };

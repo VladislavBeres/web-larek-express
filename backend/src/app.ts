@@ -1,32 +1,29 @@
+import { errors } from "celebrate";
+import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-import cors from "cors";
-import productRoutes from "./routes/products";
-import orderRoutes from "./routes/order";
-import { errors } from "celebrate";
 import path from "path";
 import errorHandler from "./middlewares/error-handler";
-import notFoundHandler from "./middlewares/not-found";
 import {
-  requestLogger,
-  errorLogger,
   clearLogsOnStartup,
+  errorLogger,
+  requestLogger,
 } from "./middlewares/logger";
+import notFoundHandler from "./middlewares/not-found";
+import { apiLimiter } from "./middlewares/rate-limiter";
 import routes from "./routes";
+import { DB_ADDRESS, PORT } from "./config";
 
-dotenv.config();
-clearLogsOnStartup();
-const PORT = process.env.PORT || 3000;
 const app = express();
 
-// Подключение к MongoDB
-const DB_ADDRESS =
-  process.env.DB_ADDRESS || "mongodb://127.0.0.1:27017/weblarek";
+clearLogsOnStartup();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// лимитер запросов
+app.use(apiLimiter);
 
 // Логгер запросов
 app.use(requestLogger);
