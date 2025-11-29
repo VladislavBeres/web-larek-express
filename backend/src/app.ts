@@ -47,11 +47,11 @@ app.use("/", routes);
 // Логгер ошибок
 app.use(errorLogger);
 
-// Обработка 404 должен быть после всех роутов
-app.use("*", notFoundHandler);
-
 // Celebrate errors middleware
 app.use(errors());
+
+// Обработка 404 должен быть после всех роутов
+app.use("*", notFoundHandler);
 
 // Общий обработчик ошибок (должен быть ПОСЛЕДНИМ)
 app.use(errorHandler);
